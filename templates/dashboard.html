@@ -54,35 +54,39 @@
             <button type="submit">Scan</button>
         </form>
 
-        <h2>Total Assets: {{ data["scanned assets"]|length }}</h2>
+        {% if data %}
 
-        <h3>Breakdown</h3>
-        <ul>
-            {% for ext, count in data["total number of assets"].items() %}
-                <li>{{ ext }} : {{ count }}</li>
-            {% endfor %}
-        </ul>
+            <h2>Total Assets: {{ data["scanned assets"]|length }}</h2>
 
-        <h3>Naming Errors</h3>
-        <ul>
-            {% for error in data["errors"] %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
+            <h3>Breakdown</h3>
+            <ul>
+                {% for ext, count in data["total number of assets"].items() %}
+                    <li>{{ ext }} : {{ count }}</li>
+                {% endfor %}
+            </ul>
 
-        <h3>Duplicates</h3>
-        <ul>
-            {% for name, paths in data["duplicate assets"].items() %}
-                <li>{{ name }}
-                    <ul>
-                        {% for path in paths %}
-                            <li>{{ path }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+            <h3>Naming Errors</h3>
+            <ul>
+                {% for error in data["errors"] %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Duplicates</h3>
+            <ul>
+                {% for name, paths in data["duplicate assets"].items() %}
+                    <li>{{ name }}
+                        <ul>
+                            {% for path in paths %}
+                                <li>{{ path }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    {% endif %}
     
     
 </body>
