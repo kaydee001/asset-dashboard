@@ -56,11 +56,11 @@
 
         {% if data %}
 
-            <h2>Total Assets: {{ data["scanned assets"]|length }}</h2>
+            <h2>Total Assets: {{ data["scanned_assets"]|length }}</h2>
 
             <h3>Breakdown</h3>
             <ul>
-                {% for ext, count in data["total number of assets"].items() %}
+                {% for ext, count in data["total_assets"].items() %}
                     <li>{{ ext }} : {{ count }}</li>
                 {% endfor %}
             </ul>
@@ -74,7 +74,7 @@
 
             <h3>Duplicates</h3>
             <ul>
-                {% for name, paths in data["duplicate assets"].items() %}
+                {% for name, paths in data["duplicate_assets"].items() %}
                     <li>{{ name }}
                         <ul>
                             {% for path in paths %}
@@ -82,6 +82,13 @@
                             {% endfor %}
                         </ul>
                     </li>
+                {% endfor %}
+            </ul>
+
+            <h3>Assets</h3>
+            <ul>
+                {% for asset in data["scanned_assets"]%}
+                <li>{{ asset["name"] }} - {{ asset["size"] }} MB</li>
                 {% endfor %}
             </ul>
         </div>

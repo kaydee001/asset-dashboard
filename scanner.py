@@ -11,9 +11,11 @@ def scan_assets(folder, extensions):
         for f in files:
             path = os.path.join(root, f)
             _, file_ext = os.path.splitext(f)
+            file_size = round(os.path.getsize(path)/(1024*1024), 2)
 
             if file_ext in extensions:
-                assets.append(path)
+                assets.append(
+                    {"path": path, "name": os.path.basename(path), "size": file_size})
 
     return assets
 
@@ -50,13 +52,14 @@ def find_duplicates(assets):
 def run_scan(folder, extensions):
     res = {}
     scanned_assets = scan_assets(folder, extensions)
-    asset_count = count_assets(scanned_assets)
-    check_name = name_checker(scanned_assets)
-    dup_assets = find_duplicates(scanned_assets)
+    paths = [asset["path"] for asset in scanned_assets]
+    asset_count = count_assets(paths)
+    check_name = name_checker(paths)
+    dup_assets = find_duplicates(paths)
 
-    res = {"scanned assets": scanned_assets,
-           "total number of assets": asset_count,
+    res = {"scanned_assets": scanned_assets,
+           "total_assets": asset_count,
            "errors": check_name,
-           "duplicate assets": dup_assets}
+           "duplicate_assets": dup_assets}
 
     return res
